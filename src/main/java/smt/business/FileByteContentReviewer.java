@@ -1,12 +1,9 @@
 package smt.business;
 
 import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Scanner;
 
 public class FileByteContentReviewer implements FileContentReviewer{
-    private static final int INPUT_BUFFER_SIZE = 2048;
+    private static final int INPUT_BUFFER_SIZE = 2;
     private byte[] input_buffer = new byte[INPUT_BUFFER_SIZE];
     private byte[] extra_buffer;
     private byte[] current_buffer; // used as a pointer
@@ -23,45 +20,41 @@ public class FileByteContentReviewer implements FileContentReviewer{
     }
 
     public boolean contains(File file, byte[] bytes) throws IOException {
+        if(bytes.length == 0) return true;
         try(FileInputStream fis = new FileInputStream(file)) {
             return containsNonClosing(fis, bytes);
         }
     }
 
-    private boolean firstStubUsing;
-    private int border;
-    private byte getByteAt(int i){
-        if(i < input_buffer.length / 2 && firstStubUsing)
-            ;
-    }
-
-    private boolean containsNonClosing(FileInputStream fis, byte[] bytes) throws IOException {
-        // Чтобы исключить ситуацию, когда все байты из буфера файла
-        // уже совпали с байтами текста, а тот ещё не кончился. В таком случае пришлось бы
-        // загружать следующую порцию, но если бы после этого совпадение не произошло,
-        // следовало бы вернуться к предыдущй порции, которая уже потеряна
+    private boolean containsNonClosing(InputStream fis, byte[] bytes) throws IOException {
         if (bytes.length > input_buffer.length) input_buffer = new byte[bytes.length];
         extra_buffer = new byte[input_buffer.length];
-        border = input_buffer.length;
         current_buffer = input_buffer;
         boolean another_buffer_filled = false;
-        boolean have_swapped = false;
-        int was_read = 0;
+
         while (true) {
-            if(!have_swapped) {
-                was_read = fis.read(current_buffer, 0, input_buffer.length);
-                have_swapped = false;
-            }
+            int was_read = fis.read(current_buffer, 0, current_buffer.length);
             if (was_read == -1) return false;
 
             for (int i = 0; i < current_buffer.length; i++) {
+                boolean haveCrossedFirstBuffer = false;
                 int file_i = i;
-                boolean match = true;
+
                 for (int k = 0; k < bytes.length; k++) {
-                    if (input_buffer[file_i] != bytes[k] || file_i == was_read) {
-                        match = false;
+                    if (file_i == was_read) return false;
+                    if (current_buffer[file_i] != bytes[k]) {
+                        if(haveCrossedFirstBuffer){
+                            // we've already switched to another buffer,
+                            // so if it was last symbol, forget old bytes
+                            if(file_i == current_buffer.length - 1)
+                                another_buffer_filled = false;
+                            else
+                                swapBuffers(); // swap to initial buffer
+                        }
                         break;
                     }
+                    if(k == bytes.length - 1)
+                        return true;
                     file_i++;
                     // in the case like:
                     // input_buffer: [ 0 b b ] [ b e 0 ]
@@ -70,8 +63,8 @@ public class FileByteContentReviewer implements FileContentReviewer{
                     // and we've just crossed the border of the current buffer
                     // then we need to use an extra one
                     if (file_i == current_buffer.length) {
+                        haveCrossedFirstBuffer = true;
                         swapBuffers();
-                        have_swapped = true;
                         if (!another_buffer_filled) {
                             was_read = fis.read(current_buffer, 0, current_buffer.length);
                             another_buffer_filled = true;
@@ -80,7 +73,6 @@ public class FileByteContentReviewer implements FileContentReviewer{
                         file_i = 0;
                     }
                 }
-                if (match) return true;
             }
         }
     }
