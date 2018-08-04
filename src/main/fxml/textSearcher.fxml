@@ -16,12 +16,7 @@
         <TreeView fx:id="fileHierarchy" onMouseClicked="#onHierarchyClick"/>
     </left>
     <right>
-        <ScrollPane prefWidth="400" prefHeight="20">
-            <content>
-                <TabPane fx:id="tabPane" >
-                </TabPane>
-            </content>
-        </ScrollPane>
+        <TabPane fx:id="tabPane" minWidth="1100"/>
     </right>
     <bottom>
         <HBox>
