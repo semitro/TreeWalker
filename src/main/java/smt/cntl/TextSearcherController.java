@@ -1,9 +1,11 @@
 package smt.cntl;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import smt.util.PathsToTreeTransormer;
@@ -34,6 +36,10 @@ public class TextSearcherController {
 
     }
 
+    public void onHierarchyClick(MouseEvent event){
+        System.out.println(event.getPickResult().getIntersectedNode().toString());
+        System.out.println(event.getSource().toString());
+    }
     public void onFindClick(){
         TreeItem<String> root = new TreeItem<>();
         root.setValue("safsa");

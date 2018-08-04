@@ -34,4 +34,12 @@ public class PathsToTreeTransormer {
         }
         return rootItem;
     }
+    public String leafToPath(TreeItem<String> leaf){
+        StringBuilder builder = new StringBuilder();
+        while (leaf != null){
+            builder.append(leaf.getValue() + File.separator);
+            leaf = leaf.getParent();
+        }
+        return builder.toString();
+    }
 }

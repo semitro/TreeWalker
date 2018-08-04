@@ -10,9 +10,7 @@
 <BorderPane fx:controller="smt.cntl.TextSearcherController"
             xmlns:fx="http://javafx.com/fxml">
     <left>
-        <TreeView fx:id="fileHierarchy">
-
-        </TreeView>
+        <TreeView fx:id="fileHierarchy" onMouseClicked="#onHierarchyClick"/>
     </left>
     <right>
         <HBox>
