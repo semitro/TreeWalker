@@ -25,7 +25,7 @@
         <HBox>
             <TextField promptText="строкау для поиска"/>
             <Label text="расширение"/>
-            <TextField promptText=".log"/>
+            <TextField promptText=".log" fx:id="filePostfix"/>
 
             <Label text="Корень поиска"/>
             <Button onAction="#onSetRootClick"/>
