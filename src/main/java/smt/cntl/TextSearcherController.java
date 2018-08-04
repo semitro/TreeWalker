@@ -6,6 +6,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import smt.util.PathsToTreeTransormer;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class TextSearcherController {
         try(Stream<Path> pathStream = Files.find(root.toPath(), 256,
                     (p, a) -> p.toString().endsWith(filePostfix.getText()))){
             List<Path> paths = pathStream.sorted().collect(Collectors.toList());
+            fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(paths, root.toPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
