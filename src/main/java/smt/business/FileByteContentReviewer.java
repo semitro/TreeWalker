@@ -28,6 +28,13 @@ public class FileByteContentReviewer implements FileContentReviewer{
         }
     }
 
+    private boolean firstStubUsing;
+    private int border;
+    private byte getByteAt(int i){
+        if(i < input_buffer.length / 2 && firstStubUsing)
+            ;
+    }
+
     private boolean containsNonClosing(FileInputStream fis, byte[] bytes) throws IOException {
         // Чтобы исключить ситуацию, когда все байты из буфера файла
         // уже совпали с байтами текста, а тот ещё не кончился. В таком случае пришлось бы
@@ -35,12 +42,16 @@ public class FileByteContentReviewer implements FileContentReviewer{
         // следовало бы вернуться к предыдущй порции, которая уже потеряна
         if (bytes.length > input_buffer.length) input_buffer = new byte[bytes.length];
         extra_buffer = new byte[input_buffer.length];
+        border = input_buffer.length;
         current_buffer = input_buffer;
         boolean another_buffer_filled = false;
         boolean have_swapped = false;
-
+        int was_read = 0;
         while (true) {
-            int was_read = fis.read(current_buffer, 0, input_buffer.length);
+            if(!have_swapped) {
+                was_read = fis.read(current_buffer, 0, input_buffer.length);
+                have_swapped = false;
+            }
             if (was_read == -1) return false;
 
             for (int i = 0; i < current_buffer.length; i++) {
@@ -49,7 +60,6 @@ public class FileByteContentReviewer implements FileContentReviewer{
                 for (int k = 0; k < bytes.length; k++) {
                     if (input_buffer[file_i] != bytes[k] || file_i == was_read) {
                         match = false;
-                        if (have_swapped) swapBuffers(); // if
                         break;
                     }
                     file_i++;
@@ -61,6 +71,7 @@ public class FileByteContentReviewer implements FileContentReviewer{
                     // then we need to use an extra one
                     if (file_i == current_buffer.length) {
                         swapBuffers();
+                        have_swapped = true;
                         if (!another_buffer_filled) {
                             was_read = fis.read(current_buffer, 0, current_buffer.length);
                             another_buffer_filled = true;
