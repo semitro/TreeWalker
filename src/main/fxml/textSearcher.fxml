@@ -10,7 +10,7 @@
 <BorderPane fx:controller="smt.cntl.TextSearcherController"
             xmlns:fx="http://javafx.com/fxml">
     <left>
-        <TreeView>
+        <TreeView fx:id="fileHierarchy">
 
         </TreeView>
     </left>
@@ -29,7 +29,7 @@
 
             <Label text="Корень поиска"/>
             <Button onAction="#onSetRootClick"/>
-            <Button text="Искать"/>
+            <Button text="Искать" onAction="#onFindClick"/>
         </HBox>
     </bottom>
 </BorderPane>
