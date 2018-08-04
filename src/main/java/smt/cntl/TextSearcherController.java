@@ -1,9 +1,7 @@
 package smt.cntl;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import smt.util.PathsToTreeTransormer;
@@ -21,12 +19,23 @@ public class TextSearcherController {
 
     @FXML private TreeView fileHierarchy;
     @FXML private TextField filePostfix;
+    @FXML private TabPane tabPane;
 
     @FXML
     public void initialize(){
         fileHierarchy.getSelectionModel().selectedItemProperty().addListener((observable,old,node)->{
             if(((TreeItem<String>)node).isLeaf())
                 System.out.println(new PathsToTreeTransormer().leafToPath((TreeItem<String>) node));
+
+            if(tabPane.getTabs().
+                    filtered(tab->tab.getText().equals(((TreeItem<String>) node).getValue()))
+                    .isEmpty()){
+                Tab newTab = new Tab(((TreeItem<String>) node).getValue());
+                TextArea textArea = new TextArea();
+                textArea.setEditable(false);
+                newTab.setContent(textArea);
+                tabPane.getTabs().add(newTab);
+            }
         });
     }
     public void onSetRootClick() {
@@ -54,11 +63,4 @@ public class TextSearcherController {
         fileHierarchy.setRoot(root);
     }
 
-    public TextField getFilePostfix() {
-        return filePostfix;
-    }
-
-    public void setFilePostfix(TextField filePostfix) {
-        this.filePostfix = filePostfix;
-    }
 }

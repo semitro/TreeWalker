@@ -7,17 +7,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.control.TabPane?>
 <BorderPane fx:controller="smt.cntl.TextSearcherController"
             xmlns:fx="http://javafx.com/fxml">
     <left>
         <TreeView fx:id="fileHierarchy" onMouseClicked="#onHierarchyClick"/>
     </left>
     <right>
-        <HBox>
-            <VBox>
-            </VBox>
-            <TextArea/>
-        </HBox>
+        <TabPane fx:id="tabPane">
+        </TabPane>
     </right>
     <bottom>
         <HBox>
