@@ -1,17 +1,74 @@
 package smt.cntl;
 
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import smt.util.PathsToTreeTransormer;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TextSearcherController {
-    private Stage fileChooserStage = new Stage();
     private DirectoryChooser directoryChooser = new DirectoryChooser();
-    public void onSetRootClick(){
-        directoryChooser.showDialog(null);
+
+    @FXML private TreeView fileHierarchy;
+    @FXML private TextField filePostfix;
+    @FXML private TabPane tabPane;
+
+    @FXML
+    public void initialize(){
+        fileHierarchy.getSelectionModel().selectedItemProperty().addListener((observable,old,node)->{
+            if(((TreeItem<String>)node).isLeaf())
+                System.out.println(new PathsToTreeTransormer().leafToPath((TreeItem<String>) node));
+
+            if(tabPane.getTabs().
+                    filtered(tab->tab.getText().equals(((TreeItem<String>) node).getValue()))
+                    .isEmpty()){
+                Tab newTab = new Tab(((TreeItem<String>) node).getValue());
+                TextFlow textFlow = new TextFlow();
+                Text text1 = new Text("asf");
+                Text text2 = new Text("sff");
+                text2.setStyle("-fx-color: green");
+                text2.setStroke(Color.GREEN);
+                textFlow.getChildren().add(text1);
+                textFlow.getChildren().add(text2);
+                newTab.setContent(textFlow);
+                tabPane.getTabs().add(newTab);
+            }
+        });
     }
+    public void onSetRootClick() {
+        File root = directoryChooser.showDialog(null);
+        System.out.println(root.toPath());
+        try(Stream<Path> pathStream = Files.find(root.toPath(), 256,
+                    (p, a) -> p.toString().endsWith(filePostfix.getText()))){
+            List<Path> paths = pathStream.sorted().collect(Collectors.toList());
+            fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(paths, root.toPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void onHierarchyClick(MouseEvent event){
+        System.out.println(event.getPickResult().getIntersectedNode().toString());
+
+    }
+    public void onFindClick(){
+        TreeItem<String> root = new TreeItem<>();
+        root.setValue("safsa");
+        root.getChildren().add(new TreeItem<>("a"));
+        root.getChildren().add(new TreeItem<>("a"));
+        fileHierarchy.setRoot(root);
+    }
+
 }
