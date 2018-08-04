@@ -3,7 +3,7 @@ package smt.business;
 import java.io.*;
 
 public class FileByteContentReviewer implements FileContentReviewer{
-    private static final int INPUT_BUFFER_SIZE = 2;
+    private static final int INPUT_BUFFER_SIZE = 4096;
     private byte[] input_buffer = new byte[INPUT_BUFFER_SIZE];
     private byte[] extra_buffer;
     private byte[] current_buffer; // used as a pointer
@@ -36,8 +36,8 @@ public class FileByteContentReviewer implements FileContentReviewer{
             int was_read = fis.read(current_buffer, 0, current_buffer.length);
             if (was_read == -1) return false;
 
+            boolean haveCrossedFirstBuffer = false;
             for (int i = 0; i < current_buffer.length; i++) {
-                boolean haveCrossedFirstBuffer = false;
                 int file_i = i;
 
                 for (int k = 0; k < bytes.length; k++) {
