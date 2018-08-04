@@ -1,13 +1,11 @@
 package smt.cntl;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
 import smt.util.PathsToTreeTransormer;
 
 import java.io.File;
@@ -23,6 +21,14 @@ public class TextSearcherController {
 
     @FXML private TreeView fileHierarchy;
     @FXML private TextField filePostfix;
+
+    @FXML
+    public void initialize(){
+        fileHierarchy.getSelectionModel().selectedItemProperty().addListener((observable,old,node)->{
+            if(((TreeItem<String>)node).isLeaf())
+                System.out.println(new PathsToTreeTransormer().leafToPath((TreeItem<String>) node));
+        });
+    }
     public void onSetRootClick() {
         File root = directoryChooser.showDialog(null);
         System.out.println(root.toPath());
@@ -38,7 +44,7 @@ public class TextSearcherController {
 
     public void onHierarchyClick(MouseEvent event){
         System.out.println(event.getPickResult().getIntersectedNode().toString());
-        System.out.println(event.getSource().toString());
+
     }
     public void onFindClick(){
         TreeItem<String> root = new TreeItem<>();
