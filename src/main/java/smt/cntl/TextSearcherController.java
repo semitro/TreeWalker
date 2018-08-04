@@ -3,6 +3,9 @@ package smt.cntl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
 import smt.util.PathsToTreeTransormer;
 
@@ -31,9 +34,14 @@ public class TextSearcherController {
                     filtered(tab->tab.getText().equals(((TreeItem<String>) node).getValue()))
                     .isEmpty()){
                 Tab newTab = new Tab(((TreeItem<String>) node).getValue());
-                TextArea textArea = new TextArea();
-                textArea.setEditable(false);
-                newTab.setContent(textArea);
+                TextFlow textFlow = new TextFlow();
+                Text text1 = new Text("asf");
+                Text text2 = new Text("sff");
+                text2.setStyle("-fx-color: green");
+                text2.setStroke(Color.GREEN);
+                textFlow.getChildren().add(text1);
+                textFlow.getChildren().add(text2);
+                newTab.setContent(textFlow);
                 tabPane.getTabs().add(newTab);
             }
         });
