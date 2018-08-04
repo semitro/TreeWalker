@@ -49,10 +49,14 @@ public class TestFileFinder {
        FileByteContentReviewer reviewer = new FileByteContentReviewer();
        try {
            System.err.println(reviewer.contains(file1, textInFile));
-           System.err.println(reviewer.contains(file1, textInFile + "safsafa"));
-           System.err.println(reviewer.contains(file1, "eadsfgf\n\n\nsaf\nas\r\n" + textInFile));
+           System.err.println(reviewer.contains(file1, textInFile.substring(0, 2)));
+           System.err.println(reviewer.contains(file1, textInFile.substring(4, textInFile.length())));
+           System.err.println(reviewer.contains(file1, ""));
+           System.err.println(reviewer.contains(file1, "a"));
+           System.err.println(reviewer.contains(file1, "c2"));
+
            assert reviewer.contains(file1, textInFile);
-       } catch (FileNotFoundException e) {
+       } catch (IOException e) {
            e.printStackTrace();
        }
    }
