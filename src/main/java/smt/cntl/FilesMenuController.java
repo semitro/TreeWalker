@@ -50,6 +50,7 @@ public class FilesMenuController {
 
                     );
                 } catch (IOException e) {
+                    System.err.println("Here!!");
                     e.printStackTrace();
                 }
                 //creating tab
