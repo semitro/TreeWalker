@@ -10,6 +10,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import smt.util.PathsToTreeTransormer;
 
+import java.nio.file.Path;
+import java.util.List;
+
 public class FilesMenuController {
 
     @FXML private TreeView fileHierarchy;
@@ -36,5 +39,8 @@ public class FilesMenuController {
                 tabPane.getTabs().add(newTab);
             }
         });
+    }
+    public void setFiles(List<Path> files, Path root){
+        fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(files, root));
     }
 }

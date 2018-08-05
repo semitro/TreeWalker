@@ -3,16 +3,9 @@ package smt.cntl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
-import smt.business.FileReviewResult;
 import smt.business.TriConsumer;
-import smt.business.TriFunction;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FilterInputStream;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.function.BiFunction;
 
 public class BottomMenuController {
 
@@ -24,14 +17,6 @@ public class BottomMenuController {
     private TriConsumer<File, String,String> walkerAction;
     public void onSetRootClick() {
         rootDirectory = new DirectoryChooser().showDialog(null);
-      /*  try(Stream<Path> pathStream = Files.find(root.toPath(), 256,
-                (p, a) -> p.toString().endsWith(filePostfix.getText()))){
-            fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(paths, root.toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
-
     }
 
     public void setFindClickCallback(TriConsumer<File, String, String> callback){
