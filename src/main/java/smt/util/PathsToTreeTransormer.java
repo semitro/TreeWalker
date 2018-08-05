@@ -15,7 +15,6 @@ public class PathsToTreeTransormer {
             String pathStr = path.toString().replaceFirst(root.toString(), "");
             for (String level : pathStr.split(File.separator)) {
                 if(level.equals("")) continue;
-                System.err.println(level);
                 boolean hasSuchChild = false;
                 for(TreeItem<String> node : currentItem.getChildren()){
                     if(node.getValue().equals(level)){

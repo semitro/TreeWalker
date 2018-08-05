@@ -41,7 +41,10 @@ public class FilesMenuController {
         });
     }
     public void setFiles(List<Path> files, Path root){
+        for (int i = 0; i < files.size(); i++) {
+            System.out.println(files.get(i));
+        }
         fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(files, root));
-        System.err.println("sffs");
+
     }
 }

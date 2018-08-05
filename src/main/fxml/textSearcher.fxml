@@ -2,9 +2,9 @@
 
 <BorderPane fx:controller="smt.cntl.TextSearcherController"
             xmlns:fx="http://javafx.com/fxml">
-    <left>
+    <center>
         <fx:include fx:id="filesMenu" source="files_menu.fxml" />
-    </left>
+    </center>
     <bottom>
         <fx:include fx:id="bottomMenu" source="bottom_menu.fxml"/>
     </bottom>

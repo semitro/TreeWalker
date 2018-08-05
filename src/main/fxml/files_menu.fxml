@@ -5,9 +5,8 @@
 
 <HBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="smt.cntl.FilesMenuController"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="smt.cntl.FilesMenuController">
 
-    <TreeView fx:id="fileHierarchy"/>
-    <TabPane fx:id="tabPane" minWidth="1100"/>
+    <TreeView fx:id="fileHierarchy" minWidth="320"/>
+    <TabPane fx:id="tabPane" minWidth="1000"/>
 </HBox>
