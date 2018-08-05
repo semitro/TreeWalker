@@ -6,11 +6,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <HBox fx:controller="smt.cntl.BottomMenuController" xmlns:fx="http://javafx.com/fxml">
         <TextArea promptText="Текст для поиска.." fx:id="textToSearching" prefWidth="200" prefHeight="50"/>
         <Label text="расширение"/>
         <TextField promptText=".log" fx:id="filePostfix" />
         <Label text="Корень поиска"/>
-        <Button onAction="#onSetRootClick"/>
+        <Button onAction="#onSetRootClick">
+                <graphic>
+                        <ImageView>
+                                <image>
+                                     <Image url="img/dir_icon.png"/>
+                                </image>
+                        </ImageView>
+                </graphic>
+        </Button>
         <Button text="Искать" onAction="#onFindClick"/>
 </HBox>
