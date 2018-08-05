@@ -1,10 +1,8 @@
 package smt.cntl;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import smt.util.PathsToTreeTransformer;
 import smt.util.TextPainter;
@@ -36,20 +34,23 @@ public class FilesMenuController {
             {
                 // load file content
                 TextFlow fileContent = new TextFlow();
-                Tab newTab = new Tab(((TreeItem<String>) node).getValue());
                 try {
                     // can highlight only the text that less than one stroke!
                     Files.readAllLines(rootDirectory.resolve(pathsToTreeTransformer.leafToPath(selectedFile))).forEach(
                             line->
                                 fileContent.getChildren().
-                                        add( textPainter .highlightWords
-                                                (line,textToSearch, "highlighted-text" ) )
+                                        addAll( textPainter .highlightWords
+                                                (line,textToSearch, "highlighted-text" ),
+                                                new Text("\n"))
 
                     );
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                newTab.setContent(fileContent);
+                ScrollPane scrollPane = new ScrollPane();
+                Tab newTab = new Tab(selectedFile.getValue());
+                scrollPane.setContent(fileContent);
+                newTab.setContent(scrollPane);
                 tabPane.getTabs().add(newTab);
             }
         });

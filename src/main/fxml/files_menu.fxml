@@ -8,5 +8,7 @@
             fx:controller="smt.cntl.FilesMenuController">
 
     <TreeView fx:id="fileHierarchy" minWidth="320"/>
-    <TabPane fx:id="tabPane" minWidth="1000"/>
+
+    <TabPane fx:id="tabPane" minWidth="1000">
+    </TabPane>
 </HBox>
