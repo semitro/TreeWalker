@@ -19,7 +19,7 @@ public class TextSearcherController {
         bottomMenuController.setFindClickCallback((root, postfix, text)->{
             try {
                 filesMenuController.setFiles(
-                        fileFinder.findFiles(root, postfix, text).collect(Collectors.toList()),
+                        fileFinder.findFiles(root, postfix, text),
                         root.toPath());
             }catch (IOException ioe){
                 ioe.printStackTrace();

@@ -44,8 +44,11 @@ public class BottomMenuController {
            Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
            warning.setContentText(warningMessage.toString());
            if(warning.showAndWait().get() == ButtonType.OK){
+               System.err.println("ok");
                 walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());
            }
         }
+        else
+            walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());
     }
 }

@@ -42,5 +42,6 @@ public class FilesMenuController {
     }
     public void setFiles(List<Path> files, Path root){
         fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(files, root));
+        System.err.println("sffs");
     }
 }
