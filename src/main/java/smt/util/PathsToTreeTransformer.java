@@ -6,7 +6,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
-public class PathsToTreeTransormer {
+public class PathsToTreeTransformer {
     public TreeItem<String> pathsToTree(List<Path> paths, Path root){
         TreeItem<String> rootItem = new TreeItem<>(root.toString()
         .substring(root.toString().lastIndexOf(File.separator)+1));
@@ -33,12 +33,15 @@ public class PathsToTreeTransormer {
         }
         return rootItem;
     }
-    public String leafToPath(TreeItem<String> leaf){
+
+    public Path leafToPath(TreeItem<String> leaf){
         StringBuilder builder = new StringBuilder();
-        while (leaf != null){
+        while (leaf.getParent() != null){
             builder.insert(0,leaf.getValue() + File.separator);
             leaf = leaf.getParent();
         }
-        return builder.toString();
+        System.err.println(builder.toString());
+        File file = new File(builder.toString());
+        return file.toPath();
     }
 }

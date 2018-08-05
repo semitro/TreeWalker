@@ -1,10 +1,8 @@
 package smt.cntl;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.HBox;
 import smt.business.FileFinder;
 import java.io.IOException;
-import java.util.stream.Collectors;
 
 public class TextSearcherController {
 
@@ -18,6 +16,7 @@ public class TextSearcherController {
             System.err.println("top");
         bottomMenuController.setFindClickCallback((root, postfix, text)->{
             try {
+                filesMenuController.setTextToSearch(text);
                 filesMenuController.setFiles(
                         fileFinder.findFiles(root, postfix, text),
                         root.toPath());

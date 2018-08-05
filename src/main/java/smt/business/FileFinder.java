@@ -16,7 +16,7 @@ public class FileFinder{
         try(
                 Stream<Path> pathStream =
                         Files.find(root.toPath(), 256,
-                                (path, attributes) -> path.toString().endsWith(postfix))
+                                (path, attributes) -> path.toString().endsWith("." + postfix))
                         .parallel()
                         .filter(path->{
                             try {
