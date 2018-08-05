@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// java directory!!
 
 public class FileFinder{
     private FileContentReviewer fileContentReviewer = new FileByteContentReviewer();
@@ -18,7 +17,7 @@ public class FileFinder{
         try(
                 Stream<Path> pathStream =
                         Files.find(root.toPath(), 256,
-                                (path, attributes) -> path.toString().endsWith(postfix))
+                                (path, attributes) -> attributes.isRegularFile() && path.toString().endsWith(postfix))
                         .parallel()
                         .filter(path->{
                             try {

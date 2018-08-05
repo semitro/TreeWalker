@@ -23,7 +23,8 @@ public class BottomMenuController {
         walkerAction = callback;
     }
 
-    public void onFindClick(){
+    @FXML
+    private void onFindClick(){
         if(rootDirectory == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Укажите корневую директория для поиска!");
@@ -44,7 +45,6 @@ public class BottomMenuController {
            Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
            warning.setContentText(warningMessage.toString());
            if(warning.showAndWait().get() == ButtonType.OK){
-               System.err.println("ok");
                 walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());
            }
         }

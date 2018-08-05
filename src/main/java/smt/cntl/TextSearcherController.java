@@ -10,7 +10,7 @@ public class TextSearcherController {
     @FXML private FilesMenuController filesMenuController;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         FileFinder fileFinder = new FileFinder();
         if(filesMenuController == null)
             System.err.println("top");
@@ -21,6 +21,7 @@ public class TextSearcherController {
                         fileFinder.findFiles(root, postfix, text),
                         root.toPath());
             }catch (IOException ioe){
+
                 ioe.printStackTrace();
             }
         });

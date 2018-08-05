@@ -40,7 +40,6 @@ public class PathsToTreeTransformer {
             builder.insert(0,leaf.getValue() + File.separator);
             leaf = leaf.getParent();
         }
-        System.err.println(builder.toString());
         File file = new File(builder.toString());
         return file.toPath();
     }

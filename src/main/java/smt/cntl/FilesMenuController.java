@@ -4,15 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import smt.util.PathsToTreeTransformer;
-import smt.util.TextPainter;
-
-import javax.swing.event.ChangeListener;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import smt.util.PathsToTreeTransformer;
+import smt.util.TextPainter;
 
 public class FilesMenuController {
 
@@ -22,7 +19,7 @@ public class FilesMenuController {
     private PathsToTreeTransformer pathsToTreeTransformer = new PathsToTreeTransformer();
     private TextPainter textPainter = new TextPainter();
     @FXML
-    public void initialize(){
+    private void initialize(){
         // on file hierarchy click
         fileHierarchy.getSelectionModel().selectedItemProperty().addListener((observable,old,node)->{
             TreeItem<String> selectedFile = (TreeItem<String>) node;

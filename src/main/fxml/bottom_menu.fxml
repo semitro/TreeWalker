@@ -14,8 +14,11 @@
         <TextField promptText=".log" fx:id="filePostfix" />
         <Label text="Корень поиска"/>
         <Button onAction="#onSetRootClick">
+                <tooltip>
+                        <Tooltip text="Директория, с которой начать поиск"/>
+                </tooltip>
                 <graphic>
-                        <ImageView>
+                        <ImageView fitHeight="32" fitWidth="32" pickOnBounds="true">
                                 <image>
                                      <Image url="img/dir_icon.png"/>
                                 </image>
