@@ -6,7 +6,6 @@ import javafx.stage.DirectoryChooser;
 import smt.business.TriConsumer;
 
 import java.io.File;
-import java.nio.file.AccessDeniedException;
 
 /**
  * Menu where attributes for the searching are getting

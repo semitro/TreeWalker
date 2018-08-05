@@ -2,12 +2,11 @@ package smt.cntl;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressIndicator;
 import smt.business.FileFinder;
 
-import javax.management.ReflectionException;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -15,10 +14,12 @@ import java.util.List;
  * The main controller that is bounded to the root stage
  **/
 
-public class TextSearcherController {
+public class MainController {
 
     @FXML private BottomMenuController bottomMenuController;
     @FXML private FilesMenuController filesMenuController;
+
+    @FXML private ProgressIndicator searchingProgressIndicator;
 
     @FXML
     private void initialize() {
@@ -30,9 +31,10 @@ public class TextSearcherController {
             exceptionDuringFindingAlert.setContentText(message.getContent());
             exceptionDuringFindingAlert.show();
         });
-        if(filesMenuController == null)
-            System.err.println("top");
+
+        //on "find" click
         bottomMenuController.setFindClickCallback((root, postfix, text)->{
+            searchingProgressIndicator.setVisible(true);
             filesMenuController.setTextToSearch(text);
             try {
                 List<Path> founded = fileFinder.findFiles(root, postfix, text);
@@ -46,9 +48,11 @@ public class TextSearcherController {
                     filesMenuController.setFiles(founded, root.toPath());
             }catch (IOException | UncheckedIOException ioe){
                 Alert noFilesAlert = new Alert(Alert.AlertType.WARNING);
-                noFilesAlert.setHeaderText("Ошибка поиска");
+                noFilesAlert.setHeaderText("Ошибка при поиске");
                 noFilesAlert.setContentText(ioe.getMessage());
                 noFilesAlert.show();
+            }finally {
+                searchingProgressIndicator.setVisible(false);
             }
         });
     }

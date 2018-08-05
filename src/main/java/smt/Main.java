@@ -10,10 +10,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/textSearcher.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Tree walker");
         Scene scene = new Scene(root, 1000,720);
-        scene.getStylesheets().add(getClass().getResource("/flatBeeTheme.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/flatBeeTheme.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

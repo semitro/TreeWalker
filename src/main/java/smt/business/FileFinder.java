@@ -7,6 +7,7 @@ import smt.observer.Observer;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -37,12 +38,13 @@ public class FileFinder implements Observable{
         try(
                 Stream<Path> pathStream =
                         Files.find(root.toPath(), 256,
-                                (path, attributes) -> attributes.isRegularFile() && path.toString().endsWith(postfix))
+                                (path, attributes) -> Files.isReadable(path)
+                                        && attributes.isRegularFile() && path.toString().endsWith(postfix))
                         .parallel()
                         .filter(path->{
                             try {
                                 return fileContentReviewer.contains(path.toFile(), text);
-                            } catch (IOException e) {
+                            } catch (IOException | UncheckedIOException e) {
                                 listOfObservers.noticeAll(
                                         new Message("Проблема при поиске (файл " + path.toString() + " )",
                                                 e.getMessage()));

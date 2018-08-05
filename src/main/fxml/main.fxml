@@ -1,0 +1,25 @@
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.control.ProgressIndicator?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane fx:controller="smt.cntl.MainController"
+            xmlns:fx="http://javafx.com/fxml">
+    <center>
+        <StackPane>
+            <fx:include fx:id="filesMenu" source="files_menu.fxml" />
+            <ProgressIndicator fx:id="searchingProgressIndicator" minWidth="400" minHeight="400"/>
+        </StackPane>
+    </center>
+    <bottom>
+        <StackPane>
+            <BorderPane.margin>
+                <Insets bottom="25" left="15" right="15" top="5"/>
+            </BorderPane.margin>
+            <fx:include fx:id="bottomMenu" source="bottom_menu.fxml" spacing="10" alignment="CENTER_LEFT" />
+        </StackPane>
+    </bottom>
+</BorderPane>

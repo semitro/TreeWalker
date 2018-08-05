@@ -30,7 +30,8 @@ public class FilesMenuController {
         // on file hierarchy click
         fileHierarchy.getSelectionModel().selectedItemProperty().addListener((observable,old,node)->{
             TreeItem<String> selectedFile = (TreeItem<String>) node;
-            if( selectedFile.isLeaf() // if it's a file, not a directory
+            if( selectedFile!= null
+                && selectedFile.isLeaf() // if it's a file, not a directory
                     && // and there's no the same tab
                     tabPane.getTabs().
                             filtered(tab->tab.getText().equals(selectedFile.getValue()))
@@ -50,7 +51,6 @@ public class FilesMenuController {
 
                     );
                 } catch (IOException e) {
-                    System.err.println("Here!!");
                     e.printStackTrace();
                 }
                 //creating tab
