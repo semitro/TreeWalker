@@ -7,11 +7,17 @@ import smt.business.TriConsumer;
 
 import java.io.File;
 
+/**
+ * Menu where attributes for the searching are getting
+ * from the user
+ *
+ */
 public class BottomMenuController {
 
     @FXML private TextField filePostfix;
     @FXML private TextArea textToSearching;
 
+    // the directory where we start searching
     private File rootDirectory;
     // callback being invoked when "find" button is clicked
     private TriConsumer<File, String,String> walkerAction;
@@ -23,6 +29,7 @@ public class BottomMenuController {
         walkerAction = callback;
     }
 
+    // if the button that produces the searching is clicked
     @FXML
     private void onFindClick(){
         if(rootDirectory == null) {
@@ -42,11 +49,11 @@ public class BottomMenuController {
                     "будут выбраны все файлы");
         }
         if(!warningMessage.toString().equals("")){
-           Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
-           warning.setContentText(warningMessage.toString());
-           if(warning.showAndWait().get() == ButtonType.OK){
+            Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
+            warning.setContentText(warningMessage.toString());
+            if(warning.showAndWait().get() == ButtonType.OK){
                 walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());
-           }
+            }
         }
         else
             walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());

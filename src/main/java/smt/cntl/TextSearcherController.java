@@ -4,6 +4,10 @@ import javafx.fxml.FXML;
 import smt.business.FileFinder;
 import java.io.IOException;
 
+/**
+ * The main controller that is bounded to the root stage
+ **/
+
 public class TextSearcherController {
 
     @FXML private BottomMenuController bottomMenuController;

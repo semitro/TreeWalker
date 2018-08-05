@@ -1,7 +1,6 @@
 package smt.business;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.LinkedList;
 import java.util.List;
 

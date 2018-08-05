@@ -2,21 +2,22 @@ package smt.business;
 
 import java.io.*;
 
+/**
+ * This class determines if file consist substring or not
+ * string is considering as a sequence of bytes.
+ * File reads by peaces of 4KB.
+ * It uses kind of double buffering to except
+ * situation where we read the same bytes from file system twice
+ *
+**/
 public class FileByteContentReviewer implements FileContentReviewer{
     private static final int INPUT_BUFFER_SIZE = 4096;
     private byte[] input_buffer = new byte[INPUT_BUFFER_SIZE];
     private byte[] extra_buffer;
-    private byte[] current_buffer; // used as a pointer
+    private byte[] current_buffer; // used as a pointer to change buffers fast
+
     public boolean contains(File file, String text) throws IOException {
         return contains(file, text.getBytes());
-    }
-
-    private byte[] getAnotherBuffer(byte[] buffer){
-        if(buffer == input_buffer) return extra_buffer;
-        else return input_buffer;
-    }
-    private void swapBuffers(){
-        current_buffer = getAnotherBuffer(current_buffer);
     }
 
     public boolean contains(File file, byte[] bytes) throws IOException {
@@ -26,24 +27,31 @@ public class FileByteContentReviewer implements FileContentReviewer{
         }
     }
 
+    /**
+    * Doesn't close the stream
+    ***/
     private boolean containsNonClosing(InputStream fis, byte[] bytes) throws IOException {
+        // We will use slow hdd to often
+        // if input buffer is less than the text we're looking for
         if (bytes.length > input_buffer.length) input_buffer = new byte[bytes.length];
         extra_buffer = new byte[input_buffer.length];
         current_buffer = input_buffer;
-        boolean another_buffer_filled = false;
+        boolean another_buffer_filled = false; // used to not read bytes from os twice
 
         while (true) {
             int was_read = fis.read(current_buffer, 0, current_buffer.length);
             if (was_read == -1) return false;
 
+            // there could be a situation then we need to compare
+            // the text with end of one buffer and the beginning of another one
             boolean haveCrossedFirstBuffer = false;
             for (int i = 0; i < current_buffer.length; i++) {
                 int file_i = i;
 
                 for (int k = 0; k < bytes.length; k++) {
                     if (file_i == was_read) return false;
-                    if (current_buffer[file_i] != bytes[k]) {
-                        if(haveCrossedFirstBuffer){
+                    if (current_buffer[file_i] != bytes[k]) { // if it doesn't match
+                        if(haveCrossedFirstBuffer) {
                             // we've already switched to another buffer,
                             // so if it was last symbol, forget old bytes
                             if(file_i == current_buffer.length - 1)
@@ -53,6 +61,7 @@ public class FileByteContentReviewer implements FileContentReviewer{
                         }
                         break;
                     }
+                    // if the loop is over and there weren't unmatches
                     if(k == bytes.length - 1)
                         return true;
                     file_i++;
@@ -75,5 +84,14 @@ public class FileByteContentReviewer implements FileContentReviewer{
                 }
             }
         }
+    }
+
+    private void swapBuffers(){
+        current_buffer = getAnotherBuffer(current_buffer);
+    }
+
+    private byte[] getAnotherBuffer(byte[] buffer){
+        if(buffer == input_buffer) return extra_buffer;
+        else return input_buffer;
     }
 }
