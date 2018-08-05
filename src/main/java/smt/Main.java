@@ -12,7 +12,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/textSearcher.fxml"));
         primaryStage.setTitle("Tree walker");
-        primaryStage.setScene(new Scene(root, 800,575));
+        Scene scene = new Scene(root, 1000,720);
+        scene.getStylesheets().add(getClass().getResource("/flatBeeTheme.css").toExternalForm());
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
