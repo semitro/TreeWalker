@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import java.io.IOException;
+import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -22,8 +23,8 @@ public class FilesMenuController {
     private String textToSearch;
     private Path rootDirectory;
 
-    private PathsToTreeTransformer pathsToTreeTransformer = new PathsToTreeTransformer();
-    private TextPainter textPainter = new TextPainter();
+    private final PathsToTreeTransformer pathsToTreeTransformer = new PathsToTreeTransformer();
+    private final TextPainter textPainter = new TextPainter();
 
     @FXML
     private void initialize(){

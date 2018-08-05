@@ -441,8 +441,6 @@
 
 
 .highlighted-text {
-    -fx-color: green;
-    -fx-background-color: red;
-    -fx-text-fill: gray;
     -fx-fill: green;
+
 }

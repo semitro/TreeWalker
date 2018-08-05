@@ -13,7 +13,7 @@
         <Label text="расширение"/>
         <TextField promptText=".log" fx:id="filePostfix" />
         <Label text="Корень поиска"/>
-        <Button onAction="#onSetRootClick">
+        <Button onAction="#onSetRootClick" >
                 <tooltip>
                         <Tooltip text="Директория, с которой начать поиск"/>
                 </tooltip>
@@ -25,5 +25,5 @@
                         </ImageView>
                 </graphic>
         </Button>
-        <Button text="Искать" onAction="#onFindClick"/>
+        <Button text="Искать" onAction="#onFindClick" fx:id="findButton"/>
 </HBox>

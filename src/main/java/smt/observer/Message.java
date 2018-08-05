@@ -1,5 +1,7 @@
 package smt.observer;
-
+/**
+  The message that is translated to the listeners
+ */
 public class Message {
     private String header;
     private String content;

@@ -16,6 +16,7 @@ public class BottomMenuController {
 
     @FXML private TextField filePostfix;
     @FXML private TextArea textToSearching;
+    @FXML private Button findButton;
 
     // the directory where we start searching
     private File rootDirectory;
@@ -57,5 +58,9 @@ public class BottomMenuController {
         }
         else
             walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());
+    }
+    // to deactivate the button
+    void setIsSearching(boolean isSearching){
+        findButton.setDisable(isSearching);
     }
 }
