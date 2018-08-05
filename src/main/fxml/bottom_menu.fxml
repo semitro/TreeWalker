@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.*?>
 
 <HBox fx:controller="smt.cntl.BottomMenuController" xmlns:fx="http://javafx.com/fxml">
-        <TextField promptText="строкау для поиска"/>
+        <TextArea promptText="Текст для поиска.." fx:id="textToSearching"/>
         <Label text="расширение"/>
-        <TextField promptText=".log"/>
-
+        <TextField promptText=".log" fx:id="filePostfix"/>
         <Label text="Корень поиска"/>
         <Button onAction="#onSetRootClick"/>
         <Button text="Искать" onAction="#onFindClick"/>
