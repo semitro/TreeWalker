@@ -13,7 +13,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Tree walker");
         Scene scene = new Scene(root, 1000,720);
-        scene.getStylesheets().add(getClass().getResource("/css/flatBeeTheme.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/css/modenaDark.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }

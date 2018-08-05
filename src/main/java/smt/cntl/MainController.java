@@ -30,7 +30,8 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        FileFinder fileFinder = new FileFinder();
+
+        final FileFinder fileFinder = new FileFinder();
         // if an exception has occurred
         fileFinder.addListener(message -> {
             Alert exceptionDuringFindingAlert = new Alert(Alert.AlertType.WARNING);
@@ -57,6 +58,8 @@ public class MainController {
                     }
                 }).start());
     }
+
+    // that should be done before searching starts
     private void searchingRoutinePrefix(String textToSearch){
         Platform.runLater(()->{
             searchingProgressIndicator.setVisible(true);
@@ -65,6 +68,7 @@ public class MainController {
             filesMenuController.setTextToSearch(textToSearch);
         });
     }
+
     private void searchingRoutinePostfix(List<Path> foundedFiles, Path root){
         Platform.runLater(()->{
             searchingProgressIndicator.setVisible(false);

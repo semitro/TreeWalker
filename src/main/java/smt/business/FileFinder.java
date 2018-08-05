@@ -20,9 +20,9 @@ import java.util.stream.Stream;
  * multi threading is provided by parallel() method of Stream API
 **/
 public class FileFinder implements Observable{
-    private FileContentReviewer fileContentReviewer = new FileByteContentReviewer();
+    private final FileContentReviewer fileContentReviewer = new FileByteContentReviewer();
     // used to tell about an exception from the lambda-expression
-    private ListOfObservers listOfObservers = new ListOfObservers();
+    private final ListOfObservers listOfObservers = new ListOfObservers();
     /**
      * find file in the file system
      *

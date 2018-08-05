@@ -5,7 +5,6 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import java.io.IOException;
-import java.nio.charset.MalformedInputException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -47,7 +46,8 @@ public class FilesMenuController {
                             line->
                                 fileContent.getChildren().
                                         addAll(textPainter.highlightWords
-                                                    (line,textToSearch, "highlighted-text" ),
+                                                    (line,textToSearch.equals("") ? "$" : textToSearch,
+                                                            "highlighted-text", "usual-text"),
                                                     new Text("\n"))
 
                     );

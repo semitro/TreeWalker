@@ -17,6 +17,7 @@ public class BottomMenuController {
     @FXML private TextField filePostfix;
     @FXML private TextArea textToSearching;
     @FXML private Button findButton;
+    @FXML private Label currentRootLabel;
 
     // the directory where we start searching
     private File rootDirectory;
@@ -24,6 +25,8 @@ public class BottomMenuController {
     private TriConsumer<File, String,String> walkerAction;
     public void onSetRootClick() {
         rootDirectory = new DirectoryChooser().showDialog(null);
+        if(rootDirectory != null)
+            currentRootLabel.setText("Директория поиска:\n" + rootDirectory.getName());
     }
 
     public void setFindClickCallback(TriConsumer<File, String, String> callback){
