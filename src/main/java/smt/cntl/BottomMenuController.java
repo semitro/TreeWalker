@@ -3,15 +3,25 @@ package smt.cntl;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
+import smt.business.FileReviewResult;
+import smt.business.TriConsumer;
+import smt.business.TriFunction;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FilterInputStream;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.function.BiFunction;
 
 public class BottomMenuController {
 
-    private File rootDirectory;
     @FXML private TextField filePostfix;
     @FXML private TextArea textToSearching;
 
+    private File rootDirectory;
+    // callback being invoked when "find" button is clicked
+    private TriConsumer<File, String,String> walkerAction;
     public void onSetRootClick() {
         rootDirectory = new DirectoryChooser().showDialog(null);
       /*  try(Stream<Path> pathStream = Files.find(root.toPath(), 256,
@@ -24,7 +34,11 @@ public class BottomMenuController {
         */
 
     }
-    //public void setFindClickCallback(BiFunction<File rootDir, String postfix, >)
+
+    public void setFindClickCallback(TriConsumer<File, String, String> callback){
+        walkerAction = callback;
+    }
+
     public void onFindClick(){
         if(rootDirectory == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -46,7 +60,7 @@ public class BottomMenuController {
            Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
            warning.setContentText(warningMessage.toString());
            if(warning.showAndWait().get() == ButtonType.OK){
-
+                walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());
            }
         }
     }

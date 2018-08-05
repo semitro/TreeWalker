@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.DirectoryChooser;
+import smt.business.FileFinder;
 import smt.util.PathsToTreeTransormer;
 
 import java.io.File;
@@ -22,7 +23,7 @@ public class TextSearcherController {
     @FXML private TreeView fileHierarchy;
     @FXML private TabPane tabPane;
     @FXML private BottomMenuController bottomMenuController;
-
+    private FileFinder fileFinder = new FileFinder();
     @FXML
     public void initialize(){
         fileHierarchy.getSelectionModel().selectedItemProperty().addListener((observable,old,node)->{
@@ -48,7 +49,14 @@ public class TextSearcherController {
 
     public void onHierarchyClick(MouseEvent event){
         System.out.println(event.getPickResult().getIntersectedNode().toString());
+        bottomMenuController.setFindClickCallback((root, postfix, text)->{
+            try {
+                fileFinder.findFiles(root, postfix, text);
 
-    }
+            }catch (IOException ioe){
+                ioe.printStackTrace();
+            }
+        });
+  }
 
 }
