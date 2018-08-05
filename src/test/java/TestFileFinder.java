@@ -3,7 +3,6 @@ import org.junit.Before;
 import org.junit.Test;
 import smt.business.FileByteContentReviewer;
 import smt.business.FileContentReviewer;
-import smt.business.FileTreeWalker;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,14 +19,6 @@ public class TestFileFinder {
             e.printStackTrace();
         }
    }
-   private FileTreeWalker fileWalker = new FileTreeWalker();
-   @Test
-   public void test1(){
-     //   fileWalker.findFiles(new File("/tmp/walkerTest"), ".*log$")
-     //          .forEach(System.out::println);
-   }
-
-
    private String textInFile = "abc123jjj";
    private File file1;
    @Before
