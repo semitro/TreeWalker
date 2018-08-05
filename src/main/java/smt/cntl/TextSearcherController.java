@@ -18,11 +18,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TextSearcherController {
-    private DirectoryChooser directoryChooser = new DirectoryChooser();
 
     @FXML private TreeView fileHierarchy;
-    @FXML private TextField filePostfix;
     @FXML private TabPane tabPane;
+    @FXML private BottomMenuController bottomMenuController;
 
     @FXML
     public void initialize(){
@@ -46,29 +45,10 @@ public class TextSearcherController {
             }
         });
     }
-    public void onSetRootClick() {
-        File root = directoryChooser.showDialog(null);
-        System.out.println(root.toPath());
-        try(Stream<Path> pathStream = Files.find(root.toPath(), 256,
-                    (p, a) -> p.toString().endsWith(filePostfix.getText()))){
-            List<Path> paths = pathStream.sorted().collect(Collectors.toList());
-            fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(paths, root.toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void onHierarchyClick(MouseEvent event){
         System.out.println(event.getPickResult().getIntersectedNode().toString());
 
-    }
-    public void onFindClick(){
-        TreeItem<String> root = new TreeItem<>();
-        root.setValue("safsa");
-        root.getChildren().add(new TreeItem<>("a"));
-        root.getChildren().add(new TreeItem<>("a"));
-        fileHierarchy.setRoot(root);
     }
 
 }

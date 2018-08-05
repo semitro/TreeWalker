@@ -6,12 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:controller="smt.cntl.TextSearcherController" xmlns:fx="http://javafx.com/fxml">
+<HBox fx:controller="smt.cntl.BottomMenuController" xmlns:fx="http://javafx.com/fxml">
         <TextField promptText="строкау для поиска"/>
         <Label text="расширение"/>
         <TextField promptText=".log"/>
 
         <Label text="Корень поиска"/>
         <Button onAction="#onSetRootClick"/>
-        <Button text="Искать"/>
+        <Button text="Искать" onAction="#onFindClick"/>
 </HBox>
