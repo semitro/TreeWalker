@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.regex.Pattern;
+
 import smt.util.PathsToTreeTransformer;
 import smt.util.TextPainter;
 
@@ -46,7 +48,7 @@ public class FilesMenuController {
                             line->
                                 fileContent.getChildren().
                                         addAll(textPainter.highlightWords
-                                                    (line,textToSearch.equals("") ? "$" : textToSearch,
+                                                    (line,textToSearch.equals("") ? "$" : Pattern.quote(textToSearch),
                                                             "highlighted-text", "usual-text"),
                                                     new Text("\n"))
 

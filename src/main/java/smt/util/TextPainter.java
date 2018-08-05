@@ -8,7 +8,6 @@ import javafx.scene.text.TextFlow;
  *
  */
 public class TextPainter {
-
     private TextSplitter splitter = new TextSplitter();
     /**
       Generates textFlow in which some words's styles are changed

@@ -4,7 +4,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.geometry.Rectangle2D;
+
 
 public class Main extends Application {
 
@@ -12,7 +15,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Tree walker");
-        Scene scene = new Scene(root, 1000,720);
+        Screen screen = Screen.getPrimary();
+        Rectangle2D screenSize = screen.getBounds();
+        Scene scene = new Scene(root,screenSize.getWidth(),screenSize.getHeight());
         scene.getStylesheets().add(getClass().getResource("/css/modenaDark.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();

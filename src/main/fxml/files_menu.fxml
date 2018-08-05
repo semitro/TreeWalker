@@ -5,7 +5,7 @@
 
 <HBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="smt.cntl.FilesMenuController">
+            fx:controller="smt.cntl.FilesMenuController" spacing="20">
 
     <TreeView fx:id="fileHierarchy" minWidth="320"/>
 

@@ -55,11 +55,21 @@
     -fx-background-color: -fx-mark-highlight-color, rgb(255, 255, 255);
 }
 
-
+.button{
+    -fx-font-size: 20px;
+}
+.label{
+    -fx-font-size: 20px;
+}
 .usual-text {
     -fx-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: Ubuntu;
 }
 
 .highlighted-text {
-    -fx-fill: green;
+    -fx-fill: #005064;
+    -fx-font-size: 16px;
+    -fx-border-color: white;
+    -fx-font-family: Ubuntu;
 }
