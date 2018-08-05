@@ -22,10 +22,7 @@ public class FileByteContentReviewer implements FileContentReviewer{
     public boolean contains(File file, byte[] bytes) throws IOException {
         if(bytes.length == 0) return true;
         try(FileInputStream fis = new FileInputStream(file)) {
-            boolean res = containsNonClosing(fis, bytes);
-            System.out.println(" file " + file.getName() + " " + res);
-            return res;
-            //return containsNonClosing(fis, bytes);
+            return containsNonClosing(fis, bytes);
         }
     }
 

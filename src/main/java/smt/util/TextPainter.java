@@ -14,15 +14,13 @@ public class TextPainter {
       Generates textFlow in which some words's styles are changed
      @param text - source text
      @param style - new style
-     @param words - words to highlight
      */
     public TextFlow highlightWords(String text, String regexp, String style){
         boolean mark = false;
         TextFlow textFlow = new TextFlow();
         for (String stub : splitter.split(text, regexp)) {
             Text nextPiece = new Text(stub);
-            if(mark)
-                nextPiece.setStyle(style);
+            if(mark) nextPiece.getStyleClass().add(style);
             textFlow.getChildren().add(nextPiece);
             mark = !mark;
         }

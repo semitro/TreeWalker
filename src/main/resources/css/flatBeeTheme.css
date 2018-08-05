@@ -438,3 +438,11 @@
 .scroll-pane>*.scroll-bar>*.thumb{
     -fx-background-color : -color;
 }
+
+
+.highlighted-text {
+    -fx-color: green;
+    -fx-background-color: red;
+    -fx-text-fill: gray;
+    -fx-fill: green;
+}
