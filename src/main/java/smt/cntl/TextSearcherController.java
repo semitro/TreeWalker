@@ -51,8 +51,8 @@ public class TextSearcherController {
         System.out.println(event.getPickResult().getIntersectedNode().toString());
         bottomMenuController.setFindClickCallback((root, postfix, text)->{
             try {
-                fileFinder.findFiles(root, postfix, text);
-
+                List<Path> paths = fileFinder.findFiles(root, postfix, text)
+                        .sorted().collect(Collectors.toList());
             }catch (IOException ioe){
                 ioe.printStackTrace();
             }

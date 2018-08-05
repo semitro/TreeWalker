@@ -26,7 +26,6 @@ public class BottomMenuController {
         rootDirectory = new DirectoryChooser().showDialog(null);
       /*  try(Stream<Path> pathStream = Files.find(root.toPath(), 256,
                 (p, a) -> p.toString().endsWith(filePostfix.getText()))){
-            List<Path> paths = pathStream.sorted().collect(Collectors.toList());
             fileHierarchy.setRoot(new PathsToTreeTransormer().pathsToTree(paths, root.toPath()));
         } catch (IOException e) {
             e.printStackTrace();

@@ -13,11 +13,13 @@
 <BorderPane fx:controller="smt.cntl.TextSearcherController"
             xmlns:fx="http://javafx.com/fxml">
     <left>
-        <TreeView fx:id="fileHierarchy" onMouseClicked="#onHierarchyClick"/>
+
+   <HBox>
+       <TreeView fx:id="fileHierarchy" onMouseClicked="#onHierarchyClick"/>
+       <TabPane fx:id="tabPane" minWidth="1100"/>
+       <Button></Button>
+   </HBox>
     </left>
-    <right>
-        <TabPane fx:id="tabPane" minWidth="1100"/>
-    </right>
     <bottom>
         <fx:include source="bottom_menu.fxml"/>
     </bottom>
