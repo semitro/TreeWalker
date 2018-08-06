@@ -23,9 +23,9 @@ public class TextSplitter {
      @result List of string in which strings with odd indexes were highlighted
      */
     public List<String> split(String text, String regexp){
-        List<String> words = new LinkedList<>();
+        final List<String> words = new LinkedList<>();
 
-        Matcher matcher = Pattern.compile(regexp).matcher(text);
+        final Matcher matcher = Pattern.compile(regexp).matcher(text);
         int previousMatch = 0;
         while (matcher.find()){
             words.add(text.substring(previousMatch, matcher.start()));

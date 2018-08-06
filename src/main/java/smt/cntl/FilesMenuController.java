@@ -29,18 +29,18 @@ public class FilesMenuController {
 
     @FXML
     private void initialize(){
-        // on file hierarchy click
+        // set up file hierarchy click listener
         fileHierarchy.getSelectionModel().selectedItemProperty().addListener((observable,old,node)->{
-            TreeItem<String> selectedFile = (TreeItem<String>) node;
+            final TreeItem<String> selectedFile = (TreeItem<String>) node;
             if( selectedFile!= null
-                && selectedFile.isLeaf() // if it's a file, not a directory
+                    && selectedFile.isLeaf() // if it's a file, not a directory
                     && // and there's no the same tab
                     tabPane.getTabs().
                             filtered(tab->tab.getText().equals(selectedFile.getValue()))
                             .isEmpty())
             {
                 // load file content
-                TextFlow fileContent = new TextFlow();
+                final TextFlow fileContent = new TextFlow();
                 try {
                     // restriction: it can highlight only the text that less than one stroke!
                     Files.readAllLines(rootDirectory.resolve(pathsToTreeTransformer.leafToPath(selectedFile)))
@@ -57,8 +57,8 @@ public class FilesMenuController {
                     e.printStackTrace();
                 }
                 //creating tab
-                ScrollPane scrollPane = new ScrollPane();
-                Tab newTab = new Tab(selectedFile.getValue());
+                final ScrollPane scrollPane = new ScrollPane();
+                final Tab newTab = new Tab(selectedFile.getValue());
                 scrollPane.setContent(fileContent);
                 newTab.setContent(scrollPane);
                 tabPane.getTabs().add(newTab);

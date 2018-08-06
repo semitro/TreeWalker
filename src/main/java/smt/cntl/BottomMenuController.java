@@ -10,8 +10,7 @@ import java.io.File;
 /**
  * Menu where attributes for the searching are getting
  * from the user
- *
- */
+ **/
 public class BottomMenuController {
 
     @FXML private TextField filePostfix;
@@ -37,12 +36,12 @@ public class BottomMenuController {
     @FXML
     private void onFindClick(){
         if(rootDirectory == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Укажите корневую директория для поиска!");
             alert.show();
             return;
         }
-        StringBuilder warningMessage = new StringBuilder();
+        final StringBuilder warningMessage = new StringBuilder();
         String warningMessageHeader = null;
         if(filePostfix.getText().equals("")){
             warningMessageHeader = "Расширение не выбрано";
@@ -53,7 +52,7 @@ public class BottomMenuController {
             warningMessage.append("Все файлы будут отобраны");
         }
         if(!warningMessage.toString().equals("")){
-            Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
+            final Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
             warning.setHeaderText(warningMessageHeader);
             warning.setContentText(warningMessage.toString());
             if(warning.showAndWait().get() == ButtonType.OK){

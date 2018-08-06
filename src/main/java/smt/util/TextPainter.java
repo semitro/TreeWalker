@@ -8,9 +8,9 @@ import javafx.scene.text.TextFlow;
  *
  */
 public class TextPainter {
-    private TextSplitter splitter = new TextSplitter();
+    private final TextSplitter splitter = new TextSplitter();
     /**
-      Generates textFlow in which some words's styles are changed
+     Generates textFlow in which some words's styles are changed
      @param text - source text
      @param regexp - if matches, style will be set
      @param style - css style
@@ -19,9 +19,9 @@ public class TextPainter {
      */
     public TextFlow highlightWords(String text, String regexp, String style, String styleNotMatch){
         boolean mark = false;
-        TextFlow textFlow = new TextFlow();
+        final TextFlow textFlow = new TextFlow();
         for (String stub : splitter.split(text, regexp)) {
-            Text nextPiece = new Text(stub);
+            final Text nextPiece = new Text(stub);
             if (mark) nextPiece.getStyleClass().add(style);
             else if (styleNotMatch != null)
                 nextPiece.getStyleClass().add(styleNotMatch);

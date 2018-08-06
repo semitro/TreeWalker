@@ -13,11 +13,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
+        final Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Tree walker");
-        Screen screen = Screen.getPrimary();
-        Rectangle2D screenSize = screen.getBounds();
-        Scene scene = new Scene(root,screenSize.getWidth(),screenSize.getHeight());
+        final Screen screen = Screen.getPrimary();
+        final Rectangle2D screenSize = screen.getBounds();
+        final Scene scene = new Scene(root,screenSize.getWidth(),screenSize.getHeight());
         scene.getStylesheets().add(getClass().getResource("/css/modenaDark.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();

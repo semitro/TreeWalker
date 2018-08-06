@@ -18,7 +18,8 @@ import java.util.stream.Stream;
  * This class encapsulate the logic of finding
  * appropriate files in the file hierarchy
  * multi threading is provided by parallel() method of Stream API
-**/
+ **/
+
 public class FileFinder implements Observable{
     private final FileContentReviewer fileContentReviewer = new FileByteContentReviewer();
     // used to tell about an exception from the lambda-expression
@@ -35,22 +36,22 @@ public class FileFinder implements Observable{
     public List<Path> findFiles(File root, String postfix, String text) throws IOException{
         if(!root.isDirectory())
             throw new IllegalArgumentException(root + " is not a directory");
-        try(
-                Stream<Path> pathStream =
-                        Files.find(root.toPath(), 256,
-                                (path, attributes) -> Files.isReadable(path)
-                                        && attributes.isRegularFile() && path.toString().endsWith(postfix))
-                        .parallel()
-                        .filter(path->{
-                            try {
-                                return fileContentReviewer.contains(path.toFile(), text);
-                            } catch (IOException | UncheckedIOException e) {
-                                listOfObservers.noticeAll(
-                                        new Message("Проблема при поиске (файл " + path.toString() + " )",
-                                                e.getMessage()));
-                            }
-                            return false;
-                        })){
+        try( Stream<Path> pathStream =
+                     Files.find(root.toPath(), 256,
+                             (path, attributes) -> Files.isReadable(path)
+                                     && attributes.isRegularFile() && path.toString().endsWith(postfix))
+                             .parallel()
+                             .filter(path->{
+                                 try {
+                                     return fileContentReviewer.contains(path.toFile(), text);
+                                 } catch (IOException | UncheckedIOException e) {
+                                     // using observer to tell about the exception during searching
+                                     listOfObservers.noticeAll(
+                                             new Message("Проблема при поиске (файл " + path.toString() + " )",
+                                                     e.getMessage()));
+                                 }
+                                 return false;
+                             })){
             return pathStream.collect(Collectors.toList());
         }
     }

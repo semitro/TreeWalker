@@ -29,7 +29,7 @@ public class MainController {
         final FileFinder fileFinder = new FileFinder();
         // if an exception has occurred
         fileFinder.addListener(message -> {
-            Alert exceptionDuringFindingAlert = new Alert(Alert.AlertType.WARNING);
+            final Alert exceptionDuringFindingAlert = new Alert(Alert.AlertType.WARNING);
             exceptionDuringFindingAlert.setHeaderText(message.getHeader());
             exceptionDuringFindingAlert.setContentText(message.getContent());
             exceptionDuringFindingAlert.show();
@@ -44,7 +44,7 @@ public class MainController {
                     try {
                         founded.addAll(fileFinder.findFiles(root, postfix, text));
                     }catch (IOException | UncheckedIOException ioe){
-                        Alert noFilesAlert = new Alert(Alert.AlertType.WARNING);
+                        final Alert noFilesAlert = new Alert(Alert.AlertType.WARNING);
                         noFilesAlert.setHeaderText("Ошибка при поиске");
                         noFilesAlert.setContentText(ioe.getMessage());
                         noFilesAlert.show();
@@ -69,7 +69,7 @@ public class MainController {
             searchingProgressIndicator.setVisible(false);
             bottomMenuController.setIsSearching(false);
             if(foundedFiles.isEmpty()){
-                Alert noFilesAlert = new Alert(Alert.AlertType.INFORMATION);
+                final Alert noFilesAlert = new Alert(Alert.AlertType.INFORMATION);
                 noFilesAlert.setHeaderText("Не найдено");
                 noFilesAlert.setContentText("Ни одного подходящго файла найдено не было");
                 noFilesAlert.show();

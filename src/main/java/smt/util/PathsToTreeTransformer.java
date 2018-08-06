@@ -30,11 +30,11 @@ public class PathsToTreeTransformer {
      *
      * */
     public TreeItem<String> pathsToTree(List<Path> paths, Path root){
-        TreeItem<String> rootItem = new TreeItem<>(root.toString()
-        .substring(root.toString().lastIndexOf(File.separator)+1));
+        final TreeItem<String> rootItem = new TreeItem<>(root.toString()
+                .substring(root.toString().lastIndexOf(File.separator)+1));
         for(Path path : paths){
             TreeItem<String> currentItem = rootItem;
-            String pathStr = path.toString().replaceFirst(root.toString(), "");
+            final String pathStr = path.toString().replaceFirst(root.toString(), "");
             for (String level : pathStr.split(File.separator)) {
                 if(level.equals("")) continue;
                 boolean hasSuchChild = false;
@@ -46,7 +46,7 @@ public class PathsToTreeTransformer {
                     }
                 }
                 if(!hasSuchChild){
-                    TreeItem<String> newChild = new TreeItem<>(level);
+                    final TreeItem<String> newChild = new TreeItem<>(level);
                     currentItem.getChildren().add(newChild);
                     currentItem = newChild;
                 }
@@ -60,12 +60,11 @@ public class PathsToTreeTransformer {
      * Build a file system path from a leaf of a javafx tree
      */
     public Path leafToPath(TreeItem<String> leaf){
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         while (leaf.getParent() != null){
             builder.insert(0,leaf.getValue() + File.separator);
             leaf = leaf.getParent();
         }
-        File file = new File(builder.toString());
-        return file.toPath();
+        return new File(builder.toString()).toPath();
     }
 }

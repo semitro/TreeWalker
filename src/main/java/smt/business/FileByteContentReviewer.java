@@ -9,7 +9,7 @@ import java.io.*;
  * It uses kind of double buffering to except
  * situation where we read the same bytes from file system twice
  *
-**/
+ **/
 public class FileByteContentReviewer implements FileContentReviewer{
     private static final int INPUT_BUFFER_SIZE = 4096;
     private byte[] input_buffer = new byte[INPUT_BUFFER_SIZE];
@@ -28,8 +28,8 @@ public class FileByteContentReviewer implements FileContentReviewer{
     }
 
     /**
-    * Doesn't close the stream
-    ***/
+     * Doesn't close the stream
+     ***/
     private boolean containsNonClosing(InputStream fis, byte[] bytes) throws IOException {
         // We will use slow hdd to often
         // if input buffer is less than the text we're looking for

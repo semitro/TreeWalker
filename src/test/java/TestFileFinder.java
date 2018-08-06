@@ -33,6 +33,7 @@ public class TestFileFinder {
         assert reviewer.contains(file1, "a");
         assert reviewer.contains(file1, textInFile);
     }
+
     @Test
     public void fileContentReviewerSimpleTestsNotContain() throws IOException {
         FileContentReviewer reviewer = new FileByteContentReviewer();
