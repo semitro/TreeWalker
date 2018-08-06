@@ -73,3 +73,13 @@
     -fx-border-color: white;
     -fx-font-family: Ubuntu;
 }
+
+#findRightNow{
+    -fx-font-size: 30em;
+    -fx-translate-x: 150;
+    -fx-translate-y: -20;
+    -fx-rotate: 15;
+}
+#findRightNow:hover{
+    -fx-font-size: 32em;
+}

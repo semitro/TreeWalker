@@ -1,11 +1,11 @@
+<?language javascript?>
+
 <?import javafx.scene.layout.BorderPane?>
-
 <?import javafx.scene.control.ProgressIndicator?>
-
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Label?>
 <BorderPane fx:controller="smt.cntl.MainController"
             xmlns:fx="http://javafx.com/fxml">
     <center>
@@ -14,7 +14,8 @@
                 <Insets bottom="25" left="15" right="15" top="10"/>
             </BorderPane.margin>
             <fx:include fx:id="filesMenu" source="files_menu.fxml" />
-            <ProgressIndicator fx:id="searchingProgressIndicator" minWidth="400" minHeight="400"/>
+            <ProgressIndicator fx:id="searchingProgressIndicator" visible="false" minWidth="400" minHeight="400"/>
+            <Label text="↓" fx:id="findRightNow"/>
         </StackPane>
     </center>
     <bottom>
@@ -22,7 +23,13 @@
             <BorderPane.margin>
                 <Insets bottom="25" left="15" right="15" top="5"/>
             </BorderPane.margin>
-            <fx:include fx:id="bottomMenu" source="bottom_menu.fxml" spacing="20" alignment="CENTER_LEFT" />
+            <fx:include fx:id="bottomMenu" source="bottom_menu.fxml" spacing="20" alignment="CENTER_LEFT"
+                        onMouseClicked="removeTheArrow()" />
+            <fx:script>
+                function removeTheArrow() {
+                    findRightNow.setVisible(false);
+                }
+            </fx:script>
         </StackPane>
     </bottom>
 </BorderPane>
