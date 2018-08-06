@@ -43,17 +43,18 @@ public class BottomMenuController {
             return;
         }
         StringBuilder warningMessage = new StringBuilder();
-
+        String warningMessageHeader = null;
         if(filePostfix.getText().equals("")){
-            warningMessage.append("Расширение не выбрано." +
-                    "Поиск будет осуществлён по всем файлам\n");
+            warningMessageHeader = "Расширение не выбрано";
+            warningMessage.append("Поиск будет осуществлён по всем файлам\n");
         }
         if(textToSearching.getText().equals("")){
-            warningMessage.append("Текст для поиска не указан.\n" +
-                    "будут выбраны все файлы");
+            warningMessageHeader = "Текст для поиска не указан";
+            warningMessage.append("Все файлы будут отобраны");
         }
         if(!warningMessage.toString().equals("")){
             Alert warning = new Alert(Alert.AlertType.CONFIRMATION);
+            warning.setHeaderText(warningMessageHeader);
             warning.setContentText(warningMessage.toString());
             if(warning.showAndWait().get() == ButtonType.OK){
                 walkerAction.accept(rootDirectory, filePostfix.getText(), textToSearching.getText());

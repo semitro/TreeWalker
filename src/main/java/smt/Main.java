@@ -8,7 +8,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.geometry.Rectangle2D;
 
-
+// javafx application entry point
 public class Main extends Application {
 
     @Override

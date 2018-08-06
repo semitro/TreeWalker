@@ -1,21 +1,16 @@
 package smt.cntl;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ProgressIndicator;
-import smt.business.FileFinder;
-
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.FutureTask;
+
+import smt.business.FileFinder;
 
 /**
  * The main controller that is bounded to the root stage

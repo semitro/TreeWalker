@@ -1,4 +1,5 @@
 package smt.observer;
+
 /**
   The message that is translated to the listeners
  */
