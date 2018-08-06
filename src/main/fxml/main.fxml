@@ -24,7 +24,7 @@
                 <Insets bottom="25" left="15" right="15" top="5"/>
             </BorderPane.margin>
             <fx:include fx:id="bottomMenu" source="bottom_menu.fxml" spacing="20" alignment="CENTER_LEFT"
-                        onMouseClicked="removeTheArrow()" />
+                        onMouseEntered="removeTheArrow()" />
             <fx:script>
                 function removeTheArrow() {
                     findRightNow.setVisible(false);
