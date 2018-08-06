@@ -8,72 +8,60 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Random;
+import java.util.Arrays;
+
 
 public class TestFileFinder {
+
+    private String textInFile = "\nabc\n123jjj";
+    private File file1;
+
     @Before
-    public void initTree(){
-        try {
-            Runtime.getRuntime().exec("mkdir test");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-   }
-   private String textInFile = "abc123jjj";
-   private File file1;
-   @Before
-   public void fileContentReviewerPreparing() throws IOException {
-       Path tFile = Files.createTempFile("reviewer-test", "txt");
-       file1 = tFile.toFile();
-       Files.write(tFile, textInFile.getBytes());
-   }
-   @Test
-   public void fileContentReviewerSimpleTests(){
-       FileByteContentReviewer reviewer = new FileByteContentReviewer();
-       try {
-           reviewer.contains(file1, textInFile);
-           reviewer.contains(file1, textInFile.substring(0, 2));
-           reviewer.contains(file1, textInFile.substring(4, textInFile.length()));
-           reviewer.contains(file1, "");
-           reviewer.contains(file1, "a");
-           reviewer.contains(file1, "c2");
+    public void fileContentReviewerPreparing() throws IOException {
+        Path tFile = Files.createTempFile("reviewer-test", "txt");
+        file1 = tFile.toFile();
+        Files.write(tFile, textInFile.getBytes());
+    }
 
-           assert reviewer.contains(file1, textInFile);
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-   }
-   private File bigFile;
-   private String bigText;
-   private final int bigFileSize = 1024*1024*20; // 20 MB
-   @Before
-   public void bigFileTestPreparation() throws IOException {
-       Random r = new Random(System.currentTimeMillis());
-       byte randomBytes[] = new byte[bigFileSize];
-       r.nextBytes(randomBytes);
-       Path path =  Files.createTempFile("reviewer-big-test", "big");
-       bigFile = path.toFile();
-       bigText = new String(randomBytes);
-       Files.write(path, randomBytes);
-   }
-   @Test
-   public void t() throws IOException {
-       FileContentReviewer reviewer = new FileByteContentReviewer();
-    //   assert reviewer.contains(Paths.get("/tmp/1.txt").toFile(),"end");
-     //  assert reviewer.contains(Paths.get("/tmp/2b.txt").toFile(),"end");
-   }
-   @Test
-   public void bigFileTest() throws IOException {
-       FileContentReviewer reviewer = new FileByteContentReviewer();
-       Random r = new Random(System.currentTimeMillis());
-       int sRange = r.nextInt(bigText.length()/4);
-       int sFrom = bigText.length()/2 + r.nextInt(bigText.length() / 4);
-      // assert reviewer.contains(bigFile, bigText.substring(0, 1));
-       //assert reviewer.contains(bigFile, bigText.substring(2049, 5000));
-       //assert reviewer.contains(bigFile, bigText.substring(sFrom, sFrom + sRange));
-   }
+    @Test
+    public void fileContentReviewerSimpleTests() throws IOException {
+        FileByteContentReviewer reviewer = new FileByteContentReviewer();
+        assert reviewer.contains(file1, textInFile);
+        assert reviewer.contains(file1, textInFile.substring(0, 2));
+        assert reviewer.contains(file1, textInFile.substring(4, textInFile.length()));
+        assert reviewer.contains(file1, "");
+        assert reviewer.contains(file1, "a");
+        assert reviewer.contains(file1, textInFile);
+    }
+    @Test
+    public void fileContentReviewerSimpleTestsNotContain() throws IOException {
+        FileContentReviewer reviewer = new FileByteContentReviewer();
+        assert !reviewer.contains(file1, "c2");
+
+    }
+    private File bigFile;
+    private final int bigFileSize = 1024*1024*20; // 20 MB
+    @Before
+    public void bigFileTestPreparation() throws IOException {
+        char[] bigStr = new char[bigFileSize];
+        Arrays.fill(bigStr, 'a');
+        bigStr[bigStr.length-25] = 'b';
+
+        Path path =  Files.createTempFile("reviewer-big-test", "big");
+        bigFile = path.toFile();
+        Files.write(path, new String(bigStr).getBytes());
+    }
+
+    @Test
+    public void bigFileTest() throws IOException {
+        FileContentReviewer reviewer = new FileByteContentReviewer();
+        assert reviewer.contains(bigFile, "ab");
+        assert !reviewer.contains(bigFile, "c");
+    }
+
     @After
-    public void clearTree(){
-
+    public void clearTree() throws IOException {
+        Files.delete(bigFile.toPath());
+        Files.delete(file1.toPath());
     }
 }
