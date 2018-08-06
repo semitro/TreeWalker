@@ -16,6 +16,7 @@ public class FileByteContentReviewer implements FileContentReviewer{
     private byte[] extra_buffer;
     private byte[] current_buffer; // used as a pointer to change buffers fast
 
+    @Override
     public boolean contains(File file, String text) throws IOException {
         return contains(file, text.getBytes());
     }
